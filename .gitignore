@@ -32,3 +32,8 @@ IMG/
 .vscode/
 .idea/
 *.swp
+
+*.h5
+*.jpg
+*.png
+/data/
