@@ -6,3 +6,7 @@ keras
 python-socketio
 Flask
 eventlet
+pandas
+imgaug
+sklearn
+albumentations

@@ -1,61 +1,108 @@
-# Complete-Self-Driving-Car
+# Self Driving Car – Behavioral Cloning Project 🚗🤖
 
-A self-driving car, also known as an autonomous vehicle, driverless car, or robotic car, is a car incorporating vehicular automation, that is, a ground vehicle that is capable of sensing its environment and moving safely with little or no human input.
+## 📌 Overview
 
+This project implements a **self-driving car using deep learning**.
+The car learns to steer by imitating human driving behavior, using data collected from a simulator.
+The solution is based on the **NVIDIA End-to-End Learning for Self-Driving Cars** model architecture.
 
-![alt text](https://cdn.dribbble.com/users/1815/screenshots/2589016/car_dr.gif)
+## ⚙️ Features
 
+* **Data Collection**: Images (`center`, `left`, `right`) and driving logs (`driving_log.csv`).
+* **Data Augmentation**: Random pan, zoom, brightness changes, and horizontal flips.
+* **Preprocessing Pipeline**: Cropping, resizing, Gaussian blur, YUV color conversion, normalization.
+* **Model Architecture**: Deep CNN inspired by **NVIDIA architecture** with ELU activations and dropout.
+* **Training**:
 
-# Download this Udacity's Self-Driving Car Simulator:
+  * Loss: Mean Squared Error (MSE)
+  * Optimizer: Adam (learning rate `1e-3`)
+  * Batch generator with real-time augmentation
+* **Inference**:
 
-[Repo link](https://github.com/udacity/self-driving-car-sim)
+  * Flask + SocketIO server communicates with the simulator.
+  * Model predicts steering angles in real-time.
+  * Throttle is adjusted dynamically to maintain safe speed.
 
+## 🏗️ Project Structure
 
-# Live demo:
-[video link](https://youtu.be/707kKmtrjrE)
-
-
-# STEPS to run this project:
-
-
-## STEP 01: 
-Clone the repository
-
-```bash
-https://github.com/entbappy/Complete-Self-Driving-Car.git
+```
+.
+├── data/                      # Dataset (driving_log.csv + IMG folder)
+│   ├── driving_log.csv
+│   └── IMG/
+├── model/                     # Saved trained model
+│   └── model.h5
+├── model_training.ipynb          # Training script
+├── drive.py                   # Flask + SocketIO server to run model in simulator
+├── requirements.txt           # Python dependencies
+└── README.md                  # Project documentation
 ```
 
-## STEP 02: 
-Create an environment & activate
+## 🔧 Installation
 
+### 1. Clone repository
 
 ```bash
-conda create -n sdcar python=3.7 -y
+git clone https://github.com/yourusername/self-driving-car.git
+cd self-driving-car
 ```
 
-## STEP 03: 
-Install the requirements
+### 2. Create environment
 
+```bash
+python -m venv venv
+venv\Scripts\activate   # Windows
+source venv/bin/activate # Linux/Mac
+```
+
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-
-## STEP 06: 
-Now to start the drive run the following command
-
+## 🚀 Training the Model
 
 ```bash
-python drive.py
+python model_training.py
 ```
 
-Now open your simulator in Autonomous mood & run yes!!🙂
+This will:
 
-# Authors:
-```bash
-Author: Bappy Ahmed
-Data Scientist
-Email: entbappy73@gmail.com
-```
+* Load and preprocess the dataset
+* Train the CNN model
+* Save the final model in `model/model.h5`
 
+## 🏎️ Running the Car in Simulator
+
+1. Launch the **Udacity Self-Driving Car Simulator** in Autonomous mode.
+
+2. Run the server:
+
+   python drive.py
+    
+   If not connected,!!
+   pip install python-engineio==3.13.2
+   pip install python-socketio==4.6.1
+
+3. The car will drive using the trained model 🚘
+
+## 📊 Results
+
+* Training Loss: Decreases steadily with augmentation.
+* Validation Loss: Stable with early stopping & dropout.
+* Car drives smoothly around the track without going off-road.
+
+## 🛠️ Troubleshooting
+
+* **FileNotFoundError**: Ensure all images in `driving_log.csv` exist inside `IMG/`.
+* **np.sctypes error**: Downgrade NumPy (`pip install numpy==1.26.4`).
+* **mse error on model load**: Use `model = load_model("model/model.h5", compile=False)`.
+* **Permission issues on Windows**: Run terminal as Administrator.
+
+## 📚 References
+
+* [NVIDIA End-to-End Learning for Self-Driving Cars](https://developer.nvidia.com/blog/deep-learning-self-driving-cars/)
+* [Udacity Self-Driving Car Simulator](https://github.com/udacity/self-driving-car-sim)
+
+---

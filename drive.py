@@ -7,6 +7,7 @@ import base64
 from io import BytesIO
 from PIL import Image
 import cv2
+from keras.losses import MeanSquaredError
  
 sio = socketio.Server()
  
@@ -48,6 +49,7 @@ def send_control(steering_angle, throttle):
  
  
 if __name__ == '__main__':
-    model = load_model('model/model.h5')
+    model = load_model('model/model.h5', custom_objects={'mse': MeanSquaredError()})
+
     app = socketio.Middleware(sio, app)
     eventlet.wsgi.server(eventlet.listen(('', 4567)), app)
