@@ -43,7 +43,7 @@ The solution is based on the **NVIDIA End-to-End Learning for Self-Driving Cars*
 ### 1. Clone repository
 
 ```bash
-git clone https://github.com/yourusername/self-driving-car.git
+git clone (https://github.com/Abhidazz/self_driving_car.git)
 cd self-driving-car
 ```
 
